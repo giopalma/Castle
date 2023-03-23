@@ -1,0 +1,5 @@
+name: Castle
+version: '${project.version}'
+main: me.dragospiro98.castle.bukkit.Castle
+api-version: 1.18
+softdepend: []
