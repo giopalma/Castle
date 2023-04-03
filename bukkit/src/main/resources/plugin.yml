@@ -1,5 +1,5 @@
 name: Castle
 version: '${project.version}'
-main: me.dragospiro98.castle.bukkit.Castle
+main: me.dragospiro98.castle.bukkit.CastlePlugin
 api-version: 1.18
-softdepend: []
+softdepend: [Parties,GriefPrevention,PlaceholderAPI]

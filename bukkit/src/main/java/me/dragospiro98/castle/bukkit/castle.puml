@@ -1,0 +1,51 @@
+@startuml
+
+class User {
+    - UUID id
+    - int trophies
+
+    int getTrophies()
+    void setTrophies(int trophies)
+    void addTrophies(int trophies)
+}
+class UserManager {
+    - Map<UUID, User> users
+    void addUser(User u)
+    User getUser(UUID  id)
+}
+
+interface ISQL{
+    Connection getConnection()
+    void closeConnection()
+}
+
+class H2SQL implements ISQL{
+    Connection getConnection()
+    void closeConnection()
+}
+
+note right of H2SQL
+    Utilizzeremo HikariCP
+    in modo da aprire e chiudere
+    la connessione al database
+    ad ogni operazione
+end note
+
+class SQLPlayerController{
+     - {static} String USER_GET
+     - {static} String USER_ADD
+     - Function<String, String> statementProcessor
+     User getUser()
+
+}
+User <-- UserManager
+
+SQLPlayerController -> User
+
+class HikariDataSource {
+    public HikariDataSource(HikariConfig config)
+}
+
+ISQL -> HikariDataSource
+
+@enduml

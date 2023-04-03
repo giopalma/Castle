@@ -19,32 +19,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>Ryandw11 Repo</id>
-            <url>https://repo.ryandw11.com/repository/maven-releases/</url>
-        </repository>
 
-        <repository>
-            <id>alessiodp-repo</id>
-            <url>https://repo.alessiodp.com/releases/</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.ryandw11</groupId>
-            <artifactId>CustomStructures</artifactId>
-            <version>1.9.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alessiodp.parties</groupId>
-            <artifactId>parties-api</artifactId>
-            <version>3.2.9</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
 </project>
