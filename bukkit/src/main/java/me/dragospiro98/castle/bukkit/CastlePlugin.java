@@ -3,7 +3,7 @@ package me.dragospiro98.castle.bukkit;
 import com.alessiodp.parties.api.Parties;
 import com.alessiodp.parties.api.interfaces.PartiesAPI;
 import dev.jorel.commandapi.CommandAPI;
-import dev.jorel.commandapi.CommandAPIConfig;
+import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import me.dragospiro98.castle.bukkit.commands.RootUserCommads;
 import me.dragospiro98.castle.bukkit.data.storage.H2StorageProvider;
 import me.dragospiro98.castle.bukkit.data.storage.MySQLStorageProvider;
@@ -13,7 +13,6 @@ import me.dragospiro98.castle.bukkit.listeners.TrophiesListener;
 import me.dragospiro98.castle.bukkit.managers.PlayerManager;
 import me.dragospiro98.castle.bukkit.messages.MessageHandler;
 import me.dragospiro98.castle.bukkit.placeholder.Expansion;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.event.Listener;
@@ -26,21 +25,19 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
 
     private BukkitAudiences adventure;
     private MiniMessage miniMessage;
-    private boolean onGriefPrevention;
-
     // Storage
     private StorageProvider storage;
 
     @Override
     public void onLoad() {
         super.onLoad();
-        CommandAPI.onLoad(new CommandAPIConfig());
-
+        CommandAPI.onLoad(new CommandAPIBukkitConfig(this).silentLogs(true));
         new RootUserCommads(this).runRootUserCommands();
     }
 
     @Override
     public void onEnable() {
+        CommandAPI.onEnable();
         // Config
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
@@ -50,14 +47,12 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
 
         this.saveDefaultConfig();
 
-
-
         // Adventure & MiniMessage
         this.miniMessage = MiniMessage.miniMessage();
         this.adventure = BukkitAudiences.create(this);
+
         // MessageHandler
         this.messageHandler = new MessageHandler(this);
-
 
         // Other plugins
         if (checkPluginEnabled("Parties")){
@@ -68,23 +63,24 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
             new Expansion(this).register();
         }
 
-        if (checkPluginEnabled("GriefPrevention")) {
-            onGriefPrevention = true;
-        }
-
         // Creazione database
         this.storage = getDatabase();
 
         // PlayerManager
         new PlayerManager(this);
 
-        // Commands
-        CommandAPI.onEnable(this);
-
         // Listeners
         registerListeners();
+    }
 
-
+    @Override
+    public void onDisable() {
+        CommandAPI.onDisable();
+        storage.close();
+        if(this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
     private StorageProvider getDatabase() {
@@ -109,14 +105,7 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new TrophiesListener(this),this);
     }
 
-    @Override
-    public void onDisable() {
-        storage.close();
-        if(this.adventure != null) {
-            this.adventure.close();
-            this.adventure = null;
-        }
-    }
+
 
     /**
      * Controlla se un plugin necessario è attivo nel server
