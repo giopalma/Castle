@@ -1,14 +1,12 @@
 package me.dragospiro98.castle.bukkit.commands;
-
 import dev.jorel.commandapi.CommandAPICommand;
 import me.dragospiro98.castle.bukkit.CastlePlugin;
 import me.dragospiro98.castle.bukkit.data.User;
+import me.dragospiro98.castle.bukkit.data.blocks.BlockBuilder;
 import me.dragospiro98.castle.bukkit.managers.PlayerManager;
 import me.dragospiro98.castle.bukkit.messages.Message;
-import me.dragospiro98.castle.bukkit.nbteditor.NBTEditor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -58,22 +56,17 @@ public class RootUserCommads {
                     player.getInventory().addItem(guardian_spawner);
                     // Creare un comando /clan castle cancel per annullare l'operazione, rimuovere il blocco dorato.
                     // Al posizionamento del blocco dorato si deve creare un claim
+
                     // si deve posizionare un guardiano che attacca tutti i nemici
                 }));
    }
 
    private ItemStack getGuardianSpawner(){
-        ItemStack b = new ItemStack(Material.GOLD_BLOCK);
-        ItemMeta meta = b.getItemMeta();
-        String name = plugin.getConfig().getString("messages.guardian_spawner.block_name");
-        meta.setDisplayName(name);
-        List<String> lore = plugin.getConfig().getStringList("messages.guardian_spawner.description");
-        meta.setLore(lore);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.addEnchant(Enchantment.WATER_WORKER,1,true);
-        b.setItemMeta(meta);
-
-        return b;
-
+        return new BlockBuilder(Material.GOLD_BLOCK)
+                .name(plugin.getConfig().getString("messages.guardian_spawner.block_name"))
+                .lore(plugin.getConfig().getStringList("messages.guardian_spawner.description"))
+                .enchant(Enchantment.WATER_WORKER,1,true)
+                .itemFlag(ItemFlag.HIDE_ENCHANTS)
+                .build();
    }
 }
