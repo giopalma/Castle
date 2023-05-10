@@ -4,6 +4,7 @@ import com.alessiodp.parties.api.Parties;
 import com.alessiodp.parties.api.interfaces.PartiesAPI;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
+import me.dragospiro98.castle.bukkit.commands.RootAdminCommands;
 import me.dragospiro98.castle.bukkit.commands.RootUserCommads;
 import me.dragospiro98.castle.bukkit.data.storage.H2StorageProvider;
 import me.dragospiro98.castle.bukkit.data.storage.MySQLStorageProvider;
@@ -33,6 +34,7 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
         super.onLoad();
         CommandAPI.onLoad(new CommandAPIBukkitConfig(this).silentLogs(true));
         new RootUserCommads(this).runRootUserCommands();
+        new RootAdminCommands(this).runRootAdminCommands();
     }
 
     @Override
