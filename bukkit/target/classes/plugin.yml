@@ -1,5 +1,0 @@
-name: Castle
-version: '1.0'
-main: me.dragospiro98.castle.bukkit.CastlePlugin
-api-version: 1.18
-softdepend: [Parties,GriefPrevention,PlaceholderAPI]

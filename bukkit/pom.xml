@@ -32,7 +32,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>/home/giovanni/Scrivania/Server Test/plugins</outputDirectory>
+                    <outputDirectory>C:\Users\Comodino\servers\1.18\plugins</outputDirectory>
                     <finalName>${project.name}</finalName>
                 </configuration>
             </plugin>

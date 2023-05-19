@@ -1,7 +1,10 @@
 package me.dragospiro98.castle.bukkit.data;
 
 import com.alessiodp.parties.api.interfaces.Party;
+import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import me.dragospiro98.castle.bukkit.managers.PlayerManager;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -9,11 +12,15 @@ import java.util.UUID;
 public class Clan {
     private final Party party;
     private int force;
-    private final Set<Region> regions;
+    private ProtectedPolygonalRegion region;
+
+    public Clan(Party party, ProtectedPolygonalRegion region){
+        this.party = party;
+        this.region = region;
+    }
 
     public Clan(Party party){
-        this.party = party;
-        this.regions = new HashSet<>();
+        this(party, null);
     }
 
     public int getTrophies() {
@@ -39,21 +46,16 @@ public class Clan {
     }
 
     /**
-     * @return le regioni {@link Region} controllate dal clan
+     * @return la region del clan
      */
-    public Set<Region> getRegions() {
-        return regions;
+    @Nullable public ProtectedPolygonalRegion getRegion() {
+        return region;
     }
 
     /**
-     * Aggiunge una regione al clan
-     * @param region {@link Region}
+     * @param region la regione da settare
      */
-    public void addRegion(Region region){
-        if(region.getClanId() == null){
-            region.setClanId(this.party.getId());
-            regions.add(region);
-        }
-
+    public void setRegion(ProtectedPolygonalRegion region) {
+        this.region = region;
     }
 }

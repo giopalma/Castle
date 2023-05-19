@@ -25,9 +25,24 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.3.1</version>
         <configuration>
-          <outputDirectory>/home/giovanni/Scrivania/Server Test/plugins</outputDirectory>
+          <outputDirectory>C:\Users\Comodino\servers\1.18\plugins</outputDirectory>
           <finalName>${project.name}</finalName>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -57,6 +72,10 @@
     <repository>
       <id>alessiodp-repo</id>
       <url>https://repo.alessiodp.com/releases/</url>
+    </repository>
+    <repository>
+      <id>sk89q-repo</id>
+      <url>https://maven.enginehub.org/repo/</url>
     </repository>
     <repository>
       <id>spigotmc-repo</id>
@@ -95,9 +114,21 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.TechFortress</groupId>
-      <artifactId>GriefPrevention</artifactId>
-      <version>16.18</version>
+      <groupId>me.lucko</groupId>
+      <artifactId>helper</artifactId>
+      <version>5.6.13</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q.worldguard</groupId>
+      <artifactId>worldguard-bukkit</artifactId>
+      <version>7.0.7</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.lucko</groupId>
+      <artifactId>helper-sql</artifactId>
+      <version>1.3.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

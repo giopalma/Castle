@@ -19,6 +19,7 @@ messages:
   full_inventory: "<bold><red>IL TUO INVENTARIO È PIENO</red></bold>"
   not_in_clan: "<bold><red>NON SEI IN NESSUN CLAN</red></bold>"
   not_leader: "<bold><red>NON SEI IL LEADER DEL CLAN</red></bold>"
+  guardian_spawned: "<green>Hai fatto nascere il tuo guardiano</green>"
   guardian_spawner:
     block_name: "FAI NASCERE IL TUO GUARDIANO"
     description:

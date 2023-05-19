@@ -2,6 +2,7 @@ package me.dragospiro98.castle.bukkit;
 
 import com.alessiodp.parties.api.Parties;
 import com.alessiodp.parties.api.interfaces.PartiesAPI;
+import com.sk89q.worldguard.WorldGuard;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import me.dragospiro98.castle.bukkit.commands.RootAdminCommands;
@@ -25,7 +26,8 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
     private MessageHandler messageHandler;
 
     private BukkitAudiences adventure;
-    private MiniMessage miniMessage;
+    private WorldGuard worldGuardAPI;
+    private MiniMessage miniMessage = null;
     // Storage
     private StorageProvider storage;
 
@@ -63,6 +65,9 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
 
         if (checkPluginEnabled("PlaceholderAPI")) {
             new Expansion(this).register();
+        }
+        if(checkPluginEnabled("WorldGuard")){
+            worldGuardAPI = WorldGuard.getInstance();
         }
 
         // Creazione database
@@ -121,6 +126,10 @@ public final class CastlePlugin extends JavaPlugin implements Listener {
             }
         }
         return false;
+    }
+
+    public WorldGuard getWorldGuardAPI() {
+        return worldGuardAPI;
     }
 
     public PartiesAPI getPartiesAPI() {

@@ -1,5 +1,11 @@
 package me.dragospiro98.castle.bukkit.data;
 
+import com.alessiodp.parties.api.interfaces.Party;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.commands.task.RegionManagerLoader;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import me.dragospiro98.castle.bukkit.CastlePlugin;
 import me.dragospiro98.castle.bukkit.messages.Message;
 import org.bukkit.Bukkit;
@@ -24,7 +30,10 @@ public class User {
         this.plugin = plugin;
         this.id = id;
         this.trophies = trophies;
-        clan = new Clan(plugin.getPartiesAPI().getPartyOfPlayer(id));
+        Party party = plugin.getPartiesAPI().getPartyOfPlayer(id);
+        clan = new Clan(party, (ProtectedPolygonalRegion) plugin.getWorldGuardAPI().getPlatform()
+                .getRegionContainer().get(BukkitAdapter.adapt(Bukkit.getWorld(plugin.getConfig().getString("castle.world"))))
+                .getRegion("region-" + party.getId()));
     }
 
     public int getTrophies() {
